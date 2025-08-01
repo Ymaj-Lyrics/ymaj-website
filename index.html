@@ -293,22 +293,24 @@
         
         .control-btn {
             background: var(--bg-tertiary);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
             color: var(--text-secondary);
-            padding: 0.75rem;
+            padding: 1rem;
             border-radius: 50%;
             cursor: pointer;
             transition: var(--transition);
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.2rem;
         }
         
         .control-btn:hover {
             border-color: var(--accent);
             color: var(--text-primary);
+            transform: scale(1.05);
         }
         
         .control-btn:disabled {
@@ -554,9 +556,76 @@
             font-size: 0.9rem;
         }
         
-        /* Hidden sections (for future use) */
-        .hidden-section {
-            display: none !important;
+        /* Article Cards - Nouveaux styles pour les articles */
+        .article-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .article-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+        }
+        
+        .article-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-article {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-article:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
         }
         
         /* Responsive Design */
@@ -799,7 +868,7 @@
             
             <div class="footer-bottom">
                 <p>&copy; 2025 YMAJ (Jamy). Paroles originales, musique générée avec Suno AI. Tous droits réservés.</p>
-                <p><a href="/privacy" style="color: var(--text-secondary);">Politique de confidentialité</a> • <a href="/terms" style="color: var(--text-secondary);">Conditions d'utilisation</a></p>
+                <p><a href="/terms/index.html" style="color: var(--text-secondary);">Politique de confidentialité</a> • <a href="/terms/index.html" style="color: var(--text-secondary);">Conditions d'utilisation</a></p>
             </div>
         </div>
     </footer>
@@ -813,36 +882,27 @@
             1: { 
                 title: "Mon évidence", 
                 artist: "YMAJ", 
-                type: "preview", // "preview" = 40s max | "full" = track complète | "teaser" = pas encore dispo
+                type: "preview",
                 available: true,
                 description: "Premier single officiel. Un voyage introspectif entre mélancolie et espoir.",
                 streaming: {
-                    spotify: "", // Laisse vide si pas encore dispo
+                    spotify: "",
                     apple: "",
                     youtube: "https://www.youtube.com/@Ymaj_Lyrics",
                     soundcloud: "https://soundcloud.com/ymaj_lyrics"
                 }
             },
             2: { 
-                title: "Experimental Session #1", 
+                title: "Dust to Day", 
                 artist: "YMAJ", 
                 type: "full",
                 available: true,
-                description: "Exploration sonore électronique. Disponible gratuitement pour découvrir mon processus créatif.",
-                streaming: {}
-            },
-            3: { 
-                title: "Fusion Culturelle", 
-                artist: "YMAJ", 
-                type: "teaser",
-                available: false,
-                description: "Nouvelle composition en préparation. Fusion entre influences québécoises et production IA innovante.",
-                releaseDate: "Septembre 2025",
+                description: "Track complète disponible à l'écoute. Exploration de mes expérimentations avec Suno AI.",
                 streaming: {}
             }
-            // Pour ajouter une track : copie un bloc ci-dessus, change le numéro (4, 5, etc.)
         };
-        
+            // Pour ajouter une track : copie un bloc ci-dessus, change le numéro (4, 5, etc.)
+
         // =====================================================
         // SYSTÈME AUDIO DYNAMIQUE - NE TOUCHE PAS SAUF SI TU SAIS
         // =====================================================
@@ -976,14 +1036,25 @@
                 const timeUpdateHandler = () => {
                     if (audio.currentTime >= 40) {
                         audio.pause();
+                        audio.currentTime = 0; // RESET pour empêcher de continuer
                         notice.classList.add('show');
                         audio.removeEventListener('timeupdate', timeUpdateHandler);
                         
-                        console.log('⏰ Preview 40s terminée');
+                        console.log('⏰ Preview 40s terminée - Reset à 0');
                     }
                 };
                 
                 audio.addEventListener('timeupdate', timeUpdateHandler);
+                
+                // Reset au play si on était déjà à 40s
+                const playHandler = () => {
+                    if (audio.currentTime >= 40) {
+                        audio.currentTime = 0;
+                        console.log('🔄 Reset preview au début');
+                    }
+                };
+                
+                audio.addEventListener('play', playHandler);
             }
         }
         
@@ -1016,13 +1087,14 @@
         }
         
         // =====================================================
-        // GÉNÉRATION DES CARDS DE MUSIQUE - AUTO-MAGIQUE
+        // GÉNÉRATION DES CARDS DE MUSIQUE + ARTICLES
         // =====================================================
         
         function generateTrackCards() {
             const container = document.getElementById('trackCards');
             container.innerHTML = '';
             
+            // Générer les tracks d'écoute
             Object.entries(tracksList).forEach(([id, track]) => {
                 const card = document.createElement('div');
                 card.className = 'track-card fade-in';
@@ -1042,10 +1114,7 @@
                 if (track.available) {
                     actionButtons = `
                         <button class="btn btn-primary" onclick="playTrack('${id}')">▶️ Écouter</button>
-                        ${track.type === 'full' ? 
-                            `<a href="/music/${id}.mp3" class="btn btn-secondary" download>⬇️ Télécharger</a>` : 
-                            `<a href="#" class="btn btn-secondary">🔗 Streaming</a>`
-                        }
+                        <span class="btn btn-secondary" style="opacity: 0.5;">🔗 Streaming (bientôt)</span>
                     `;
                 } else {
                     actionButtons = `<button class="btn btn-secondary" disabled>🔜 ${track.releaseDate || 'Bientôt'}</button>`;
@@ -1067,6 +1136,49 @@
                 
                 container.appendChild(card);
             });
+            
+            // Ajouter les articles
+            generateArticleCards();
+        }
+        
+        function generateArticleCards() {
+            const container = document.getElementById('trackCards');
+            
+            // Article Mon évidence
+            const articleEvidence = document.createElement('div');
+            articleEvidence.className = 'article-card fade-in';
+            articleEvidence.innerHTML = `
+                <div class="article-header">
+                    <div>
+                        <h3>L'histoire de "Mon évidence"</h3>
+                        <p class="track-artist">Interview exclusive • Paroles complètes</p>
+                    </div>
+                    <span class="article-badge">📖 Article</span>
+                </div>
+                <p>Découvrez l'histoire complète derrière ma première composition. Comment l'idée est née, le processus créatif avec Suno AI, et les paroles complètes avec leurs significations.</p>
+                <div class="article-actions">
+                    <a href="/articles/mon-evidence-story" class="btn-article">📖 Lire l'article complet</a>
+                </div>
+            `;
+            container.appendChild(articleEvidence);
+            
+            // Article Dust to Day
+            const articleDust = document.createElement('div');
+            articleDust.className = 'article-card fade-in';
+            articleDust.innerHTML = `
+                <div class="article-header">
+                    <div>
+                        <h3>Expérimentation "Dust to Day"</h3>
+                        <p class="track-artist">Processus créatif • Techniques Suno</p>
+                    </div>
+                    <span class="article-badge">🧪 Expérience</span>
+                </div>
+                <p>Plongez dans mon laboratoire créatif. Comment j'expérimente avec Suno AI, les techniques que j'utilise, et les découvertes surprenantes de cette composition.</p>
+                <div class="article-actions">
+                    <a href="/articles/dust-to-day-experiment" class="btn-article">🧪 Découvrir l'expérience</a>
+                </div>
+            `;
+            container.appendChild(articleDust);
         }
         
         // =====================================================
