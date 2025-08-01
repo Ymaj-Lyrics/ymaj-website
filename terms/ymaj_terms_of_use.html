@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditions d'Utilisation - YMAJ</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Conditions d'utilisation du site YMAJ - Droits d'auteur, usage autorisé, protection du contenu musical">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Style identique à la page privacy */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #6366f1;
+            --border: #333333;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin: 4rem 0 3rem 0;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .back-link:hover {
+            color: var(--accent);
+        }
+        
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+        
+        .content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .intro {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 2rem;
+        }
+        
+        .intro h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 2rem 0;
+        }
+        
+        .warning-box h3 {
+            color: #ef4444;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: var(--text-primary);
+        }
+        
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.5rem 0;
+            color: var(--text-primary);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        ul {
+            margin: 1rem 0 1rem 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .contact-info h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        .email-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .email-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .footer-nav {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: var(--transition);
+        }
+        
+        .footer-nav a:hover {
+            color: var(--accent);
+        }
+        
+        .highlight {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .content {
+                padding: 2rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">YMAJ</div>
+            <a href="/" class="back-link">← Retour au site</a>
+        </div>
+        
+        <h1 class="page-title">Conditions d'Utilisation</h1>
+        <p class="last-updated">Dernière mise à jour : 1er août 2025</p>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>📋 Règles d'Utilisation</h2>
+                <p><strong>En utilisant ce site web, vous acceptez ces conditions d'utilisation.</strong> Ces règles protègent à la fois vos droits en tant que visiteur et nos droits en tant que créateurs de contenu.</p>
+            </div>
+            
+            <h2>1. Acceptation des Conditions</h2>
+            <p>En accédant et en utilisant le site web de YMAJ (<span class="highlight">ymaj-official.netlify.app</span> et tout futur domaine), vous acceptez d'être lié par ces conditions d'utilisation et toutes les lois applicables.</p>
+            <p>Si vous n'acceptez pas ces conditions, <strong>veuillez ne pas utiliser ce site</strong>.</p>
+            
+            <h2>2. Propriété Intellectuelle et Droits d'Auteur</h2>
+            
+            <h3>2.1 Contenu Musical</h3>
+            <p>Toute la musique présente sur ce site est protégée par le droit d'auteur :</p>
+            <ul>
+                <li><strong>Paroles :</strong> © YMAJ (Jamy) - Tous droits réservés</li>
+                <li><strong>Compositions musicales :</strong> Créées avec Suno AI sous licence payante</li>
+                <li><strong>Arrangements et direction artistique :</strong> © YMAJ (Jamy)</li>
+                <li><strong>Enregistrements :</strong> © YMAJ (Jamy) 2025</li>
+            </ul>
+            
+            <h3>2.2 Contenu du Site Web</h3>
+            <p>Le design, l'architecture, le code source et le contenu textuel de ce site sont :</p>
+            <ul>
+                <li><strong>Code original :</strong> Architecture 100% personnalisée</li>
+                <li><strong>Design unique :</strong> Création sur mesure YMAJ</li>
+                <li><strong>Articles et textes :</strong> © YMAJ (Jamy)</li>
+                <li><strong>Photographies :</strong> © YMAJ (Jamy) sauf mention contraire</li>
+            </ul>
+            
+            <div class="warning-box">
+                <h3>⚠️ Interdiction Formelle</h3>
+                <p><strong>Il est strictement interdit de :</strong></p>
+                <ul>
+                    <li>Copier, reproduire ou distribuer le code source de ce site</li>
+                    <li>Utiliser le design ou l'architecture pour d'autres projets</li>
+                    <li>Extraire ou télécharger la musique protégée (sauf autorisation explicite)</li>
+                    <li>Utiliser le nom "YMAJ" ou les créations pour des projets commerciaux</li>
+                </ul>
+            </div>
+            
+            <h2>3. Utilisation Autorisée</h2>
+            
+            <h3>3.1 Ce que Vous Pouvez Faire</h3>
+            <ul>
+                <li><strong>Écouter :</strong> Streaming personnel des tracks disponibles</li>
+                <li><strong>Partager :</strong> Liens vers ce site sur vos réseaux sociaux</li>
+                <li><strong>Télécharger :</strong> Uniquement les tracks marquées "Téléchargement gratuit"</li>
+                <li><strong>Citer :</strong> Courts extraits pour critique ou analyse (usage équitable)</li>
+            </ul>
+            
+            <h3>3.2 Utilisation Commerciale</h3>
+            <p>Toute utilisation commerciale de notre contenu nécessite une <strong>autorisation écrite préalable</strong>. Contactez-nous à <a href="mailto:ymaj.contact@gmail.com" class="email-link">ymaj.contact@gmail.com</a></p>
+            
+            <h2>4. Contenu Généré par IA - Transparence</h2>
+            <p>Nous assumons pleinement l'utilisation de l'intelligence artificielle :</p>
+            <ul>
+                <li><strong>Suno AI :</strong> Utilisé pour la génération musicale et vocale</li>
+                <li><strong>Licence légale :</strong> Abonnement payant donnant droits commerciaux</li>
+                <li><strong>Créativité humaine :</strong> Paroles, concept et direction artistique par YMAJ</li>
+                <li><strong>Transparence totale :</strong> Aucune dissimulation de l'usage IA</li>
+            </ul>
+            
+            <h2>5. Téléchargements Gratuits (Vault Sessions)</h2>
+            <p>Certaines tracks sont disponibles en téléchargement gratuit :</p>
+            <ul>
+                <li><strong>Usage personnel uniquement</strong> (pas de redistribution)</li>
+                <li><strong>Pas d'usage commercial</strong> sans autorisation</li>
+                <li><strong>Crédits obligatoires</strong> si utilisation publique</li>
+                <li><strong>Format :</strong> MP3 avec métadonnées de copyright intégrées</li>
+            </ul>
+            
+            <h2>6. Liens Externes et Plateformes de Streaming</h2>
+            <p>Ce site contient des liens vers des plateformes externes :</p>
+            <ul>
+                <li><strong>Spotify, Apple Music, YouTube, etc. :</strong> Leurs conditions s'appliquent</li>
+                <li><strong>Achats/Streams :</strong> Transactions sous leur responsabilité</li>
+                <li><strong>Problèmes techniques :</strong> Contactez directement ces plateformes</li>
+            </ul>
+            
+            <h2>7. Comportement des Utilisateurs</h2>
+            
+            <h3>7.1 Conduite Interdite</h3>
+            <p>Il est interdit de :</p>
+            <ul>
+                <li><strong>Pirater ou copier</strong> le contenu protégé</li>
+                <li><strong>Spammer</strong> nos systèmes de contact</li>
+                <li><strong>Tenter d'accéder</strong> à des sections privées</li>
+                <li><strong>Utiliser des bots</strong> pour scraper le contenu</li>
+                <li><strong>Diffamer</strong> YMAJ ou ses collaborateurs</li>
+            </ul>
+            
+            <h3>7.2 Conséquences</h3>
+            <p>Toute violation peut entraîner :</p>
+            <ul>
+                <li>Signalement aux autorités compétentes</li>
+                <li>Actions légales appropriées si nécessaire</li>
+                <li>Réclamation de dommages-intérêts selon la loi</li>
+            </ul>
+            
+            <h2>8. Limitation de Responsabilité</h2>
+            <p>YMAJ ne peut être tenu responsable de :</p>
+            <ul>
+                <li><strong>Interruptions de service</strong> temporaires</li>
+                <li><strong>Problèmes techniques</strong> liés à votre équipement</li>
+                <li><strong>Contenu de sites tiers</strong> liés depuis notre site</li>
+                <li><strong>Dommages indirects</strong> liés à l'utilisation du site</li>
+            </ul>
+            
+            <h2>9. Protection des Mineurs</h2>
+            <p>Ce site est accessible à tous les âges :</p>
+            <ul>
+                <li><strong>Contenu approprié :</strong> Langage parfois familier dans un contexte artistique, pas de contenu explicite</li>
+                <li><strong>Pas de collecte de données</strong> sur les mineurs</li>
+                <li><strong>Parents :</strong> Supervision recommandée comme pour tout site web</li>
+            </ul>
+            
+            <h2>10. Juridiction et Droit Applicable</h2>
+            <p>Ces conditions sont régies par :</p>
+            <ul>
+                <li><strong>Droit québécois</strong> (Loi 25, Code civil du Québec)</li>
+                <li><strong>Droit canadien</strong> (LPRPDE, Loi sur le droit d'auteur)</li>
+                <li><strong>Tribunaux compétents :</strong> Québec, Canada</li>
+            </ul>
+            
+            <h2>11. Modifications des Conditions</h2>
+            <p>Nous nous réservons le droit de modifier ces conditions :</p>
+            <ul>
+                <li><strong>Notification :</strong> Mise à jour de la date en haut de page</li>
+                <li><strong>Changements majeurs :</strong> Notification par email si possible</li>
+                <li><strong>Acceptation :</strong> Utilisation continue = acceptation des nouvelles conditions</li>
+            </ul>
+            
+            <h2>12. DMCA et Réclamations de Copyright</h2>
+            <p>Si vous pensez qu'un contenu viole vos droits :</p>
+            <ul>
+                <li><strong>Contact immédiat :</strong> <a href="mailto:ymaj.contact@gmail.com" class="email-link">ymaj.contact@gmail.com</a></li>
+                <li><strong>Informations requises :</strong> Description précise du contenu concerné</li>
+                <li><strong>Réponse :</strong> Sous 48h maximum</li>
+                <li><strong>Résolution :</strong> Retrait immédiat si réclamation fondée</li>
+            </ul>
+            
+            <div class="contact-info">
+                <h3>📧 Contact Légal</h3>
+                <p>Pour toute question concernant ces conditions :</p>
+                <p><strong>Entité :</strong> YMAJ (Jamy), Artiste Individuel<br>
+                <strong>Localisation :</strong> Québec, Canada<br>
+                <strong>Email légal :</strong> <a href="mailto:ymaj.contact@gmail.com" class="email-link">ymaj.contact@gmail.com</a><br>
+                <strong>Email DMCA :</strong> <a href="mailto:ymaj.contact@gmail.com" class="email-link">ymaj.contact@gmail.com</a><br>
+                <strong>Contact général :</strong> <a href="mailto:ymaj.contact@gmail.com" class="email-link">ymaj.contact@gmail.com</a></p>
+            </div>
+            
+            <div class="intro">
+                <h2>✅ En Résumé</h2>
+                <p><strong>Respectez notre travail créatif, nous respectons vos droits de visiteur.</strong> Profitez de la musique, partagez nos liens, mais ne copiez pas notre contenu protégé.</p>
+                <p>Questions ? Contactez-nous, nous sommes là pour aider ! 🎵</p>
+            </div>
+        </div>
+        
+        <div class="footer-nav">
+            <a href="/">Accueil</a>
+            <a href="/privacy">Politique de confidentialité</a>
+            <a href="mailto:ymaj.contact@gmail.com">Contact</a>
+        </div>
+    </div>
+</body>
+</html>

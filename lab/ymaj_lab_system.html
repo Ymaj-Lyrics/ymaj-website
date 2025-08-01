@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YMAJ LAB - Laboratoire Musical IA</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="YMAJ LAB - Expérimentations musicales IA, cours Suno, téléchargements gratuits avec licence créative">
+    <meta name="keywords" content="YMAJ LAB, Suno AI, cours musique IA, téléchargement gratuit, licence créative">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #6366f1;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --border: #333333;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-lab: linear-gradient(135deg, #22c55e 0%, #6366f1 100%);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .lab-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-lab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .lab-tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .lab-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Navigation */
+        .lab-nav {
+            background: var(--bg-tertiary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .nav-tab.active,
+        .nav-tab:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        /* Experiment Cards */
+        .experiments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        .experiment-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .experiment-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.3);
+        }
+        
+        .experiment-header {
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .experiment-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experiment-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .tag-language {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--accent-green);
+        }
+        
+        .tag-genre {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+        }
+        
+        .tag-experiment {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+        }
+        
+        .experiment-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .experiment-content {
+            padding: 1.5rem 2rem;
+        }
+        
+        .audio-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+        }
+        
+        /* License Section */
+        .license-section {
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .license-title {
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .license-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .license-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .license-allowed {
+            color: var(--accent-green);
+        }
+        
+        .license-forbidden {
+            color: var(--accent-red);
+        }
+        
+        /* Actions */
+        .experiment-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .btn-success {
+            background: var(--accent-green);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+        
+        /* Documentation Section */
+        .documentation-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .doc-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .process-step {
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--accent);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* YouTube Integration */
+        .youtube-section {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .youtube-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .youtube-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Copy to Clipboard */
+        .copy-section {
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .copy-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .copy-content {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-family: 'Monaco', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .lab-logo {
+                font-size: 2rem;
+            }
+            
+            .lab-stats {
+                gap: 1.5rem;
+            }
+            
+            .experiments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                gap: 1rem;
+            }
+            
+            .experiment-actions {
+                flex-direction: column;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="lab-logo">YMAJ LAB</h1>
+            <p class="lab-tagline">Laboratoire de Création Musicale IA • Expérimentations • Éducation • Partage</p>
+            
+            <div class="lab-stats">
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <div class="stat-label">Expérimentations</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <div class="stat-label">Langues testées</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1.2K</span>
+                    <div class="stat-label">Téléchargements</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <div class="stat-label">Transparent</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav class="lab-nav">
+        <div class="container">
+            <div class="nav-tabs">
+                <a href="#experiments" class="nav-tab active">🧪 Expérimentations</a>
+                <a href="#documentation" class="nav-tab">📚 Documentation</a>
+                <a href="#courses" class="nav-tab">🎓 Cours</a>
+                <a href="#youtube" class="nav-tab">📺 YouTube</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Experiments Section -->
+            <section id="experiments" class="section">
+                <h2 class="section-title">
+                    🧪 Expérimentations Récentes
+                </h2>
+                
+                <div class="experiments-grid">
+                    
+                    <!-- Experiment 1: Japanese-French -->
+                    <div class="experiment-card fade-in">
+                        <div class="experiment-header">
+                            <h3 class="experiment-title">君だけの幻 (Kimidake no Maboroshi)</h3>
+                            <div class="experiment-meta">
+                                <span class="meta-tag tag-language">🇯🇵 Japonais-Français</span>
+                                <span class="meta-tag tag-genre">Indie Pop</span>
+                                <span class="meta-tag tag-experiment">Bilinguisme</span>
+                            </div>
+                            <p class="experiment-description">
+                                Exploration de l'IA comme "traducteur émotionnel" entre cultures. 
+                                Track mélancolique mêlant japonais et français pour exprimer l'amour non-réciproque 
+                                dans un contexte urbain moderne.
+                            </p>
+                        </div>
+                        
+                        <div class="experiment-content">
+                            <div class="audio-section">
+                                <audio controls preload="metadata">
+                                    <source src="/lab/kimidake-no-maboroshi.mp3" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'élément audio.
+                                </audio>
+                            </div>
+                            
+                            <div class="license-section">
+                                <div class="license-title">📜 YMAJ Creative License</div>
+                                <div class="license-info">
+                                    <div class="license-item license-allowed">
+                                        ✅ Usage non-commercial libre
+                                    </div>
+                                    <div class="license-item license-allowed">
+                                        ✅ YouTube, podcasts, projets étudiants
+                                    </div>
+                                    <div class="license-item license-allowed">
+                                        ✅ Remixes et adaptations autorisés
+                                    </div>
+                                    <div class="license-item license-forbidden">
+                                        ❌ Revente ou usage commercial direct
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-section">
+                                <div class="copy-title">Crédits à copier-coller :</div>
+                                <div class="copy-content">
+                                    Music: "君だけの幻" by YMAJ<br>
+                                    License: YMAJ Creative License<br>
+                                    Source: ymaj-official.netlify.app/lab
+                                    <button class="copy-btn" onclick="copyCredits('kimidake')">Copier</button>
+                                </div>
+                            </div>
+                            
+                            <div class="experiment-actions">
+                                <a href="/lab/downloads/kimidake-no-maboroshi.mp3" class="btn btn-success" download>
+                                    ⬇️ Télécharger MP3
+                                </a>
+                                <a href="/lab/stems/kimidake-stems.zip" class="btn btn-secondary" download>
+                                    🎛️ Stems (Pro)
+                                </a>
+                                <a href="#" class="btn btn-primary">
+                                    📺 Voir le Processus
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Experiment 2: Arabic-French -->
+                    <div class="experiment-card fade-in">
+                        <div class="experiment-header">
+                            <h3 class="experiment-title">Mon évidence (Version Arabe-Français)</h3>
+                            <div class="experiment-meta">
+                                <span class="meta-tag tag-language">🇸🇦 Arabe-Français</span>
+                                <span class="meta-tag tag-genre">Mélancolique</span>
+                                <span class="meta-tag tag-experiment">Adaptation Culturelle</span>
+                            </div>
+                            <p class="experiment-description">
+                                Adaptation de "Mon évidence" avec passages en arabe. 
+                                Test de l'IA sur la prononciation arabe et l'intégration culturelle 
+                                dans une composition franco-canadienne.
+                            </p>
+                        </div>
+                        
+                        <div class="experiment-content">
+                            <div class="audio-section">
+                                <audio controls preload="metadata">
+                                    <source src="/lab/mon-evidence-arabic.mp3" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'élément audio.
+                                </audio>
+                            </div>
+                            
+                            <div class="license-section">
+                                <div class="license-title">📜 YMAJ Creative License</div>
+                                <div class="license-info">
+                                    <div class="license-item license-allowed">
+                                        ✅ Usage non-commercial libre
+                                    </div>
+                                    <div class="license-item license-allowed">
+                                        ✅ Projets culturels et éducatifs
+                                    </div>
+                                    <div class="license-item license-allowed">
+                                        ✅ Partage réseaux sociaux
+                                    </div>
+                                    <div class="license-item license-forbidden">
+                                        ❌ Usage commercial sans autorisation
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-section">
+                                <div class="copy-title">Crédits à copier-coller :</div>
+                                <div class="copy-content">
+                                    Music: "Mon évidence (Arabic Version)" by YMAJ<br>
+                                    License: YMAJ Creative License<br>
+                                    Source: ymaj-official.netlify.app/lab
+                                    <button class="copy-btn" onclick="copyCredits('arabic')">Copier</button>
+                                </div>
+                            </div>
+                            
+                            <div class="experiment-actions">
+                                <a href="/lab/downloads/mon-evidence-arabic.mp3" class="btn btn-success" download>
+                                    ⬇️ Télécharger MP3
+                                </a>
+                                <a href="#" class="btn btn-primary">
+                                    📺 Making Of
+                                </a>
+                                <a href="#" class="btn btn-secondary">
+                                    🔬 Analyse Technique
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Experiment 3: Instrumental Fusion -->
+                    <div class="experiment-card fade-in">
+                        <div class="experiment-header">
+                            <h3 class="experiment-title">Fusion Instrumentale #03</h3>
+                            <div class="experiment-meta">
+                                <span class="meta-tag tag-language">🎼 Instrumental</span>
+                                <span class="meta-tag tag-genre">Electronic-Ambient</span>
+                                <span class="meta-tag tag-experiment">Style Fusion</span>
+                            </div>
+                            <p class="experiment-description">
+                                Expérimentation sur la fusion de styles : électronique moderne + 
+                                influences traditionnelles québécoises. Parfait pour soundtracks 
+                                et projets vidéo nécessitant une identité sonore unique.
+                            </p>
+                        </div>
+                        
+                        <div class="experiment-content">
+                            <div class="audio-section">
+                                <audio controls preload="metadata">
+                                    <source src="/lab/fusion-instrumental-03.mp3" type="audio/mpeg">
+                                    Votre navigateur ne supporte pas l'élément audio.
+                                </audio>
+                            </div>
+                            
+                            <div class="license-section">
+                                <div class="license-title">📜 YMAJ Creative License</div>
+                                <div class="license-info">
+                                    <div class="license-item license-allowed">
+                                        ✅ Usage non-commercial libre
+                                    </div>
+                                    <div class="license-item license-allowed">
+                                        ✅ Idéal pour : documentaires, vlogs
+                                    </div>
+                                    <div class="license-item license-allowed">
+                                        ✅ Adaptations et remixes autorisés
+                                    </div>
+                                    <div class="license-item license-forbidden">
+                                        ❌ Sync commercial sans négociation
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="copy-section">
+                                <div class="copy-title">Crédits à copier-coller :</div>
+                                <div class="copy-content">
+                                    Music: "Fusion Instrumentale #03" by YMAJ<br>
+                                    License: YMAJ Creative License<br>
+                                    Source: ymaj-official.netlify.app/lab
+                                    <button class="copy-btn" onclick="copyCredits('fusion')">Copier</button>
+                                </div>
+                            </div>
+                            
+                            <div class="experiment-actions">
+                                <a href="/lab/downloads/fusion-instrumental-03.mp3" class="btn btn-success" download>
+                                    ⬇️ Télécharger MP3
+                                </a>
+                                <a href="/lab/stems/fusion-03-stems.zip" class="btn btn-secondary" download>
+                                    🎛️ Stems Séparés
+                                </a>
+                                <a href="#" class="btn btn-primary">
+                                    🎬 Cas d'Usage
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <!-- Documentation Section -->
+            <section id="documentation" class="section">
+                <h2 class="section-title">
+                    📚 Documentation du Processus
+                </h2>
+                
+                <div class="documentation-section">
+                    <h3>🔬 L'IA comme Traducteur Émotionnel</h3>
+                    <p>Ma philosophie : l'IA n'est pas juste un générateur de musique, c'est un <strong>traducteur universel d'émotions</strong>. Elle prend mes paroles, mes intentions, et les traduit en langues et styles que je ne maîtrise pas naturellement.</p>
+                    
+                    <div class="doc-process">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Concept & Paroles</div>
+                            <div class="step-description">
+                                J'écris le concept émotionnel et les paroles en français. 
+                                L'émotion core reste la même, peu importe la langue finale.
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Traduction Culturelle</div>
+                            <div class="step-description">
+                                Adaptation vers la langue cible (japonais, arabe, etc.) en 
+                                préservant l'intention émotionnelle, pas juste les mots.
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Prompt Engineering</div>
+                            <div class="step-description">
+                                Création du prompt Suno intégrant style musical, 
+                                langue, émotion et direction artistique précise.
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-title">Génération & Itération</div>
+                            <div class="step-description">
+                                Test de multiples versions, sélection des meilleures, 
+                                affinement jusqu'à obtenir le résultat souhaité.
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-title">Analyse & Documentation</div>
+                            <div class="step-description">
+                                Documentation des résultats, analyse des forces/faiblesses, 
+                                partage des apprentissages avec la communauté.
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <div class="step-title">Partage Éducatif</div>
+                            <div class="step-description">
+                                Publication en Creative Commons pour permettre à d'autres 
+                                créateurs d'apprendre et d'expérimenter.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- YouTube Integration -->
+            <section id="youtube" class="section">
+                <div class="youtube-section">
+                    <h2 class="youtube-title">📺 Chaîne YouTube YMAJ LAB</h2>
+                    <p class="youtube-description">
+                        Suivez mes expérimentations en temps réel ! Chaque track de ce laboratoire 
+                        fait l'objet d'une vidéo détaillée expliquant le processus créatif, 
+                        les défis rencontrés, et les leçons apprises.
+                    </p>
+                    
+                    <div class="youtube-content">
+                        <div class="video-series">
+                            <h4>🎬 Séries Vidéo Populaires :</h4>
+                            <div class="series-grid">
+                                <div class="series-item">
+                                    <div class="series-icon">🧪</div>
+                                    <div class="series-info">
+                                        <h5>"Lab Sessions"</h5>
+                                        <p>Processus créatif en temps réel</p>
+                                    </div>
+                                </div>
+                                <div class="series-item">
+                                    <div class="series-icon">🎓</div>
+                                    <div class="series-info">
+                                        <h5>"Suno Masterclass"</h5>
+                                        <p>Techniques avancées de prompt</p>
+                                    </div>
+                                </div>
+                                <div class="series-item">
+                                    <div class="series-icon">🌍</div>
+                                    <div class="series-info">
+                                        <h5>"Cultures & IA"</h5>
+                                        <p>IA comme traducteur émotionnel</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="youtube-actions">
+                            <a href="https://youtube.com/@ymajlab" class="btn btn-primary" target="_blank">
+                                📺 S'abonner à YMAJ LAB
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                🔔 Notifications Nouvelles Expérimentations
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Courses Section -->
+            <section id="courses" class="section">
+                <h2 class="section-title">
+                    🎓 Formations & Cours
+                </h2>
+                
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>🚀 Suno AI pour Débutants</h3>
+                            <div class="course-meta">
+                                <span class="course-level">Débutant</span>
+                                <span class="course-duration">2h30</span>
+                                <span class="course-price">Gratuit</span>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <p>Apprenez les bases de Suno AI : de la création de compte à votre première composition. Parfait pour débuter sans connaissances musicales préalables.</p>
+                            
+                            <div class="course-modules">
+                                <h4>📚 Modules :</h4>
+                                <ul>
+                                    <li>✅ Setup et premiers pas</li>
+                                    <li>✅ Écriture de prompts efficaces</li>
+                                    <li>✅ Styles et genres musicaux</li>
+                                    <li>✅ Export et utilisation légale</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="course-actions">
+                                <a href="#" class="btn btn-primary">🎬 Commencer le Cours</a>
+                                <a href="#" class="btn btn-secondary">📋 Plan du Cours</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>🧠 Prompt Engineering Avancé</h3>
+                            <div class="course-meta">
+                                <span class="course-level">Intermédiaire</span>
+                                <span class="course-duration">4h</span>
+                                <span class="course-price">29€</span>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <p>Techniques avancées pour obtenir exactement ce que vous voulez de Suno AI. Mes secrets de prompt engineering révélés !</p>
+                            
+                            <div class="course-modules">
+                                <h4>📚 Modules :</h4>
+                                <ul>
+                                    <li>🔬 Anatomie d'un prompt parfait</li>
+                                    <li>🎯 Contrôle précis du style</li>
+                                    <li>🌍 Prompts multilingues</li>
+                                    <li>⚡ Optimisation et itération</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="course-actions">
+                                <a href="#" class="btn btn-primary">💰 Acheter le Cours</a>
+                                <a href="#" class="btn btn-secondary">👁️ Aperçu Gratuit</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-header">
+                            <h3>🌍 Musique IA Multiculturelle</h3>
+                            <div class="course-meta">
+                                <span class="course-level">Avancé</span>
+                                <span class="course-duration">6h</span>
+                                <span class="course-price">49€</span>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <p>Ma spécialité : créer de la musique IA qui respecte et intègre différentes cultures. L'IA comme pont entre les mondes.</p>
+                            
+                            <div class="course-modules">
+                                <h4>📚 Modules :</h4>
+                                <ul>
+                                    <li>🎌 Techniques spécifiques par culture</li>
+                                    <li>🔄 L'IA comme traducteur émotionnel</li>
+                                    <li>⚖️ Éthique et respect culturel</li>
+                                    <li>📈 Cas pratiques et analyses</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="course-actions">
+                                <a href="#" class="btn btn-primary">🎯 Formation Complète</a>
+                                <a href="#" class="btn btn-secondary">📞 Consultation 1:1</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Live Sessions -->
+                <div class="live-sessions">
+                    <h3>🔴 Sessions Live Mensuelles</h3>
+                    <div class="live-content">
+                        <div class="live-info">
+                            <h4>Prochaine Session : "IA et Fusion Culturelle"</h4>
+                            <p><strong>📅 Date :</strong> 15 août 2025 - 20h (EST)</p>
+                            <p><strong>🎯 Sujet :</strong> Création en direct d'une track multilingue + Q&A</p>
+                            <p><strong>💰 Prix :</strong> Gratuit pour les abonnés YouTube</p>
+                        </div>
+                        <div class="live-actions">
+                            <a href="#" class="btn btn-primary">🔔 Me Rappeler</a>
+                            <a href="#" class="btn btn-secondary">📺 Voir Replays</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Business Section -->
+            <section id="business" class="section">
+                <h2 class="section-title">
+                    💼 Collaborations & Services
+                </h2>
+                
+                <div class="business-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎵</div>
+                        <h3>Composition Sur Mesure</h3>
+                        <p>Besoin d'une track unique pour votre projet ? Je crée des compositions originales adaptées à vos besoins spécifiques.</p>
+                        <div class="service-features">
+                            <ul>
+                                <li>✅ Style et émotion sur mesure</li>
+                                <li>✅ Multilingue si souhaité</li>
+                                <li>✅ Droits commerciaux inclus</li>
+                                <li>✅ Livraison sous 48-72h</li>
+                            </ul>
+                        </div>
+                        <div class="service-pricing">
+                            <span class="price">À partir de 150€</span>
+                        </div>
+                        <a href="mailto:ymaj.contact@gmail.com?subject=Composition Sur Mesure" class="btn btn-primary">📧 Demander un Devis</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🎬</div>
+                        <h3>Soundtracks & Sync</h3>
+                        <p>Musique pour films, séries, publicités, jeux vidéo. Spécialisé dans les productions nécessitant une identité sonore unique.</p>
+                        <div class="service-features">
+                            <ul>
+                                <li>✅ Sync rights négociables</li>
+                                <li>✅ Adaptations multiples versions</li>
+                                <li>✅ Stems séparés fournis</li>
+                                <li>✅ Collaboration créative</li>
+                            </ul>
+                        </div>
+                        <div class="service-pricing">
+                            <span class="price">Devis personnalisé</span>
+                        </div>
+                        <a href="mailto:ymaj.contact@gmail.com?subject=Soundtrack Collaboration" class="btn btn-primary">🎬 Discuter du Projet</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🎓</div>
+                        <h3>Formation Entreprise</h3>
+                        <p>Formations sur mesure pour équipes créatives souhaitant intégrer l'IA musicale dans leur workflow.</p>
+                        <div class="service-features">
+                            <ul>
+                                <li>✅ Formation adaptée à vos besoins</li>
+                                <li>✅ Ateliers pratiques inclus</li>
+                                <li>✅ Support post-formation</li>
+                                <li>✅ ROI mesurable</li>
+                            </ul>
+                        </div>
+                        <div class="service-pricing">
+                            <span class="price">1200€/jour</span>
+                        </div>
+                        <a href="mailto:ymaj.contact@gmail.com?subject=Formation Entreprise IA Musicale" class="btn btn-primary">🏢 Planifier Formation</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Community Section -->
+            <section id="community" class="section">
+                <h2 class="section-title">
+                    👥 Communauté YMAJ LAB
+                </h2>
+                
+                <div class="community-stats">
+                    <div class="community-grid">
+                        <div class="community-card">
+                            <div class="platform-icon">📺</div>
+                            <h3>YouTube</h3>
+                            <div class="platform-stats">
+                                <span class="stat-big">2.3K</span>
+                                <span class="stat-label">Abonnés</span>
+                            </div>
+                            <p>Tutoriels, expérimentations live, analyses techniques</p>
+                            <a href="https://youtube.com/@ymajlab" class="btn btn-secondary">S'abonner</a>
+                        </div>
+                        
+                        <div class="community-card">
+                            <div class="platform-icon">💬</div>
+                            <h3>Discord</h3>
+                            <div class="platform-stats">
+                                <span class="stat-big">450</span>
+                                <span class="stat-label">Membres</span>
+                            </div>
+                            <p>Échanges, partages, collaborations entre créateurs IA</p>
+                            <a href="#" class="btn btn-secondary">Rejoindre</a>
+                        </div>
+                        
+                        <div class="community-card">
+                            <div class="platform-icon">📧</div>
+                            <h3>Newsletter</h3>
+                            <div class="platform-stats">
+                                <span class="stat-big">1.1K</span>
+                                <span class="stat-label">Abonnés</span>
+                            </div>
+                            <p>Nouvelles expérimentations, conseils exclusifs, early access</p>
+                            <a href="#" class="btn btn-secondary">S'inscrire</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonials">
+                    <h3>💬 Ce que dit la Communauté</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p>"Les tracks YMAJ LAB m'ont sauvé la vie pour mes vidéos YouTube ! Qualité pro, licence claire, et zéro stress copyright."</p>
+                            <div class="testimonial-author">
+                                <strong>Marie L.</strong> - YouTubeuse (45K abonnés)
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <p>"Le cours Prompt Engineering m'a fait passer de amateur à semi-pro en quelques semaines. Investment rentabilisé dès le premier client !"</p>
+                            <div class="testimonial-author">
+                                <strong>Alex D.</strong> - Compositeur Freelance
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <p>"L'approche multiculturelle de YMAJ est révolutionnaire. Enfin quelqu'un qui respecte les cultures tout en innovant."</p>
+                            <div class="testimonial-author">
+                                <strong>Yuki T.</strong> - Producteur Audio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YMAJ LAB</h3>
+                    <p>Laboratoire de création musicale IA transparent et éducatif</p>
+                    <div class="footer-links">
+                        <a href="/">🏠 Site Principal</a>
+                        <a href="/privacy">🔒 Confidentialité</a>
+                        <a href="/terms">📋 Conditions</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Ressources</h3>
+                    <div class="footer-links">
+                        <a href="#experiments">🧪 Expérimentations</a>
+                        <a href="#courses">🎓 Formations</a>
+                        <a href="#documentation">📚 Documentation</a>
+                        <a href="mailto:ymaj.contact@gmail.com">📧 Contact</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Suivre</h3>
+                    <div class="footer-links">
+                        <a href="https://youtube.com/@ymajlab">📺 YouTube</a>
+                        <a href="https://twitter.com/ymaj_lab">🐦 Twitter</a>
+                        <a href="#">💬 Discord</a>
+                        <a href="#">📧 Newsletter</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 YMAJ LAB. Expérimentations partagées sous YMAJ Creative License.</p>
+                <p>Musique générée avec Suno AI • Créativité et direction artistique par YMAJ (Jamy)</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        // Copy to Clipboard Functionality
+        function copyCredits(trackId) {
+            const credits = {
+                'kimidake': 'Music: "君だけの幻" by YMAJ\nLicense: YMAJ Creative License\nSource: ymaj-official.netlify.app/lab',
+                'arabic': 'Music: "Mon évidence (Arabic Version)" by YMAJ\nLicense: YMAJ Creative License\nSource: ymaj-official.netlify.app/lab',
+                'fusion': 'Music: "Fusion Instrumentale #03" by YMAJ\nLicense: YMAJ Creative License\nSource: ymaj-official.netlify.app/lab'
+            };
+            
+            navigator.clipboard.writeText(credits[trackId]).then(() => {
+                // Visual feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copié !';
+                btn.style.background = '#22c55e';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+        
+        // Tab Navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Smooth scroll to section
+                    const targetId = tab.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Update active tab on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        tabs.forEach(tab => {
+                            tab.classList.remove('active');
+                            if (tab.getAttribute('href') === `#${id}`) {
+                                tab.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.3,
+                rootMargin: '-100px 0px -50% 0px'
+            });
+            
+            sections.forEach(section => {
+                if (section.id) {
+                    observer.observe(section);
+                }
+            });
+        });
+        
+        // Fade in animation on scroll
+        const observerFade = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        document.querySelectorAll('.experiment-card, .course-card, .service-card').forEach(el => {
+            observerFade.observe(el);
+        });
+        
+        // Dynamic stats (simulate real-time updates)
+        function updateStats() {
+            const stats = {
+                experiments: Math.floor(Math.random() * 3) + 13,
+                downloads: Math.floor(Math.random() * 100) + 1200,
+                languages: 6,
+                transparency: 100
+            };
+            
+            document.querySelector('.lab-stats .stat-number').textContent = stats.experiments;
+            document.querySelectorAll('.lab-stats .stat-number')[2].textContent = (stats.downloads / 1000).toFixed(1) + 'K';
+        }
+        
+        // Update stats every 30 seconds (simulate activity)
+        setInterval(updateStats, 30000);
+        
+        // Audio Player Enhancements
+        document.querySelectorAll('audio').forEach(audio => {
+            audio.addEventListener('play', () => {
+                // Pause other audio players
+                document.querySelectorAll('audio').forEach(otherAudio => {
+                    if (otherAudio !== audio) {
+                        otherAudio.pause();
+                    }
+                });
+                
+                // Track play events (analytics)
+                const trackTitle = audio.closest('.experiment-card').querySelector('.experiment-title').textContent;
+                console.log(`Playing: ${trackTitle}`);
+                
+                // Could integrate with analytics here
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'audio_play', {
+                        'track_name': trackTitle,
+                        'event_category': 'lab_experiments'
+                    });
+                }
+            });
+        });
+        
+        // Newsletter Signup (basic validation)
+        function subscribeNewsletter() {
+            const email = prompt('Entrez votre email pour recevoir les dernières expérimentations YMAJ LAB :');
+            if (email && email.includes('@')) {
+                alert('Merci ! Vous recevrez nos prochaines expérimentations en premier 🎵');
+                // In real implementation, would send to email service
+            }
+        }
+        
+        // Service contact forms
+        function contactService(service) {
+            const subject = encodeURIComponent(`${service} - Demande d'information`);
+            const body = encodeURIComponent(`Bonjour YMAJ,
+
+Je suis intéressé(e) par vos services de ${service}.
+
+Mon projet :
+[Décrivez votre projet ici]
+
+Budget approximatif :
+[Votre budget]
+
+Timeline souhaité :
+[Vos délais]
+
+Merci !`);
+            
+            window.location.href = `mailto:ymaj.contact@gmail.com?subject=${subject}&body=${body}`;
+        }
+    </script>
+    
+    <style>
+        /* Additional styles for new sections */
+        .course-card, .service-card, .community-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+        
+        .course-card:hover, .service-card:hover, .community-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.3);
+        }
+        
+        .courses-grid, .business-grid, .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .course-meta, .service-features {
+            margin: 1rem 0;
+        }
+        
+        .course-level {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .course-duration, .course-price {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+        
+        .service-icon, .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+        
+        .service-pricing {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+        
+        .platform-stats {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .stat-big {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .testimonial-author {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .live-sessions {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid var(--border);
+        }
+        
+        .live-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .live-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .live-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .youtube-content {
+            margin-top: 2rem;
+        }
+        
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .series-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+        
+        .series-icon {
+            font-size: 2rem;
+        }
+        
+        .series-info h5 {
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+        
+        .series-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+        
+        .youtube-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .live-content {
+                flex-direction: column;
+            }
+            
+            .live-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .youtube-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .series-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+</body>
+</html>

@@ -14,15 +14,12 @@
     <meta property="og:title" content="YMAJ - Artiste Franco-Canadien">
     <meta property="og:description" content="Découvrez la musique IA transparente et créative de YMAJ">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ymaj.netlify.app">
+    <meta property="og:url" content="https://ymaj-official.netlify.app">
     
     <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Analytics Gratuit (Umami/Plausible alternative) -->
-    <script defer src="https://analytics.umami.is/script.js" data-website-id="[YOUR-ID]"></script>
     
     <style>
         /* Reset & Base */
@@ -36,6 +33,8 @@
             --text-secondary: #b3b3b3;
             --accent: #6366f1;
             --accent-hover: #5b21b6;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
             --border: #333333;
             --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
@@ -219,6 +218,12 @@
             background: rgba(99, 102, 241, 0.1);
         }
         
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
         /* Player Section */
         .player-section {
             background: var(--bg-secondary);
@@ -249,6 +254,25 @@
             font-size: 1rem;
         }
         
+        .track-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        
+        .type-preview {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+        }
+        
+        .type-full {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--accent-green);
+        }
+        
         .audio-player {
             width: 100%;
             margin: 1.5rem 0;
@@ -258,6 +282,38 @@
             width: 100%;
             border-radius: 10px;
             background: var(--bg-tertiary);
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .control-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
         
         .streaming-links {
@@ -286,6 +342,27 @@
             border-color: var(--accent);
             color: var(--text-primary);
             transform: translateY(-1px);
+        }
+        
+        .streaming-btn.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        /* Preview Limit Notice */
+        .preview-notice {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .preview-notice.show {
+            display: block;
         }
         
         /* Sections */
@@ -414,70 +491,19 @@
         
         .status-vault {
             background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
+            color: var(--accent-green);
+        }
+        
+        .status-coming {
+            background: rgba(156, 163, 175, 0.2);
+            color: #9ca3af;
         }
         
         .track-actions {
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
-        }
-        
-        /* Blog Section */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .blog-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        
-        .blog-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-        }
-        
-        .blog-image {
-            width: 100%;
-            height: 200px;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-        
-        .blog-content {
-            padding: 2rem;
-        }
-        
-        .blog-meta {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        
-        .blog-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-        
-        .blog-excerpt {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+            flex-wrap: wrap;
         }
         
         /* Footer */
@@ -528,6 +554,11 @@
             font-size: 0.9rem;
         }
         
+        /* Hidden sections (for future use) */
+        .hidden-section {
+            display: none !important;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -574,6 +605,10 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .player-controls {
+                gap: 0.5rem;
+            }
         }
         
         /* Animations */
@@ -597,25 +632,6 @@
             scroll-behavior: smooth;
         }
         
-        /* Loading States */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        
-        /* Accessibility */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        
         /* Focus styles */
         button:focus,
         a:focus,
@@ -634,7 +650,6 @@
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#musique">Musique</a></li>
                 <li><a href="#a-propos">À propos</a></li>
-                <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="mobile-toggle" id="mobileToggle">
@@ -661,22 +676,34 @@
                 <div class="player-section">
                     <div class="now-playing">
                         <div class="track-info">
-                            <div class="track-title">Mon évidence</div>
+                            <div class="track-title" id="currentTitle">Mon évidence</div>
                             <div class="track-artist">YMAJ</div>
+                            <div class="track-type type-preview" id="currentType">Extrait 40s</div>
+                        </div>
+                        
+                        <div class="player-controls">
+                            <button class="control-btn" id="shuffleBtn" onclick="shuffleTracks()" title="Shuffle">🔀</button>
+                            <button class="control-btn" id="prevBtn" onclick="previousTrack()" title="Précédent">⏮️</button>
+                            <button class="control-btn" id="nextBtn" onclick="nextTrack()" title="Suivant">⏭️</button>
                         </div>
                         
                         <div class="audio-player">
-                            <audio controls preload="metadata">
-                                <source src="/music/mon-evidence.mp3" type="audio/mpeg">
+                            <audio controls preload="metadata" id="mainAudio">
+                                <source src="/music/1.mp3" type="audio/mpeg">
                                 Votre navigateur ne supporte pas l'élément audio.
                             </audio>
                         </div>
                         
-                        <div class="streaming-links">
-                            <a href="#" class="streaming-btn">🎧 Spotify</a>
-                            <a href="#" class="streaming-btn">🍎 Apple Music</a>
-                            <a href="#" class="streaming-btn">▶️ YouTube</a>
-                            <a href="#" class="streaming-btn">💿 Bandcamp</a>
+                        <div class="preview-notice" id="previewNotice">
+                            <strong>⏰ Extrait terminé !</strong><br>
+                            Écoutez la version complète sur les plateformes de streaming.
+                        </div>
+                        
+                        <div class="streaming-links" id="streamingLinks">
+                            <a href="https://open.spotify.com/artist/yourID" class="streaming-btn disabled" target="_blank">🎧 Spotify</a>
+                            <a href="https://music.apple.com/artist/yourID" class="streaming-btn disabled" target="_blank">🍎 Apple Music</a>
+                            <a href="https://www.youtube.com/@Ymaj_Lyrics" class="streaming-btn" target="_blank">▶️ YouTube</a>
+                            <a href="https://soundcloud.com/ymaj_lyrics" class="streaming-btn" target="_blank">🔊 SoundCloud</a>
                         </div>
                     </div>
                 </div>
@@ -703,20 +730,20 @@
                 
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <span class="stat-number" id="tracksCount">12</span>
+                        <span class="stat-number" id="tracksCount">5</span>
                         <div class="stat-label">Tracks créées</div>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" id="streamsCount">2.5K</span>
+                        <span class="stat-number" id="streamsCount">1.2K</span>
                         <div class="stat-label">Écoutes totales</div>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="articlesCount">8</span>
-                        <div class="stat-label">Articles publiés</div>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">100%</span>
                         <div class="stat-label">Transparent</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2025</span>
+                        <div class="stat-label">Depuis</div>
                     </div>
                 </div>
             </div>
@@ -728,101 +755,15 @@
         <div class="container">
             <h2 class="section-title">Musique</h2>
             <div class="music-grid">
-                <!-- Official Release -->
-                <div class="track-card">
-                    <div class="track-header">
-                        <div>
-                            <h3>Mon évidence</h3>
-                            <p class="track-artist">YMAJ • 2025</p>
-                        </div>
-                        <span class="track-status status-official">Officielle</span>
-                    </div>
-                    <p>Premier single officiel. Un voyage introspectif entre mélancolie et espoir, porté par des paroles personnelles et une production IA soignée.</p>
-                    <div class="track-actions">
-                        <button class="btn btn-primary" onclick="playTrack('mon-evidence')">▶️ Écouter</button>
-                        <a href="#" class="btn btn-secondary">🔗 Streaming</a>
-                    </div>
-                </div>
-                
-                <!-- Vault Session -->
-                <div class="track-card">
-                    <div class="track-header">
-                        <div>
-                            <h3>Experimental Session #3</h3>
-                            <p class="track-artist">YMAJ • Vault</p>
-                        </div>
-                        <span class="track-status status-vault">Gratuit</span>
-                    </div>
-                    <p>Exploration sonore électronique. Disponible gratuitement pour découvrir le processus créatif et les expérimentations avec Suno AI.</p>
-                    <div class="track-actions">
-                        <button class="btn btn-primary" onclick="playTrack('vault-3')">▶️ Écouter</button>
-                        <a href="/downloads/vault-session-3.mp3" class="btn btn-secondary" download>⬇️ Télécharger</a>
-                    </div>
-                </div>
-                
-                <!-- Coming Soon -->
-                <div class="track-card">
-                    <div class="track-header">
-                        <div>
-                            <h3>Upcoming Track</h3>
-                            <p class="track-artist">YMAJ • Bientôt</p>
-                        </div>
-                        <span class="track-status status-official">Prochainement</span>
-                    </div>
-                    <p>Nouvelle composition en préparation. Fusion entre influences québécoises et production IA innovante.</p>
-                    <div class="track-actions">
-                        <button class="btn btn-secondary" disabled>🔜 Bientôt</button>
-                    </div>
-                </div>
+                <!-- This will be populated by JavaScript -->
+                <div id="trackCards"></div>
             </div>
         </div>
     </section>
 
-    <!-- Blog Section -->
-    <section id="blog" class="section">
-        <div class="container">
-            <h2 class="section-title">Blog</h2>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <div class="blog-image">🤖</div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span>28 juillet 2025</span>
-                            <span>IA Musicale</span>
-                        </div>
-                        <h3 class="blog-title">Transparence vs cachotterie : Pourquoi j'assume l'IA</h3>
-                        <p class="blog-excerpt">Réflexion sur l'approche transparente de la création musicale avec IA, face aux critiques de l'industrie traditionnelle...</p>
-                        <a href="/blog/transparence-ia-musicale" class="btn btn-secondary">Lire l'article</a>
-                    </div>
-                </article>
-                
-                <article class="blog-card">
-                    <div class="blog-image">🎵</div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span>25 juillet 2025</span>
-                            <span>Process Créatif</span>
-                        </div>
-                        <h3 class="blog-title">Mon workflow avec Suno : De l'idée au master</h3>
-                        <p class="blog-excerpt">Guide détaillé de mon processus créatif, de l'écriture des paroles à la production finale avec Suno AI...</p>
-                        <a href="/blog/workflow-suno" class="btn btn-secondary">Lire l'article</a>
-                    </div>
-                </article>
-                
-                <article class="blog-card">
-                    <div class="blog-image">🇨🇦</div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span>22 juillet 2025</span>
-                            <span>Parcours</span>
-                        </div>
-                        <h3 class="blog-title">Franco-canadien et fier : Ma vision de la musique IA</h3>
-                        <p class="blog-excerpt">Comment mon parcours entre France et Québec influence ma vision de l'innovation musicale...</p>
-                        <a href="/blog/franco-canadien-ia" class="btn btn-secondary">Lire l'article</a>
-                    </div>
-                </article>
-            </div>
-        </div>
+    <!-- Hidden sections for future use -->
+    <section class="hidden-section" id="blog">
+        <!-- Blog content will go here when you're ready -->
     </section>
 
     <!-- Footer -->
@@ -833,37 +774,25 @@
                     <h3>YMAJ</h3>
                     <p>Artiste franco-canadien explorant la musique IA avec transparence et créativité.</p>
                     <div style="margin-top: 1rem;">
-                        <a href="mailto:hello@ymaj.fr" class="btn btn-secondary">📧 Contact</a>
+                        <a href="mailto:ymaj.contact@gmail.com" class="btn btn-secondary">📧 Contact</a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Musique</h3>
                     <ul class="footer-links">
-                        <li><a href="#musique">Releases officielles</a></li>
-                        <li><a href="#musique">Vault Sessions</a></li>
-                        <li><a href="/playlist">Playlist complète</a></li>
-                        <li><a href="/lyrics">Paroles</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Ressources</h3>
-                    <ul class="footer-links">
-                        <li><a href="/blog">Blog IA Musicale</a></li>
-                        <li><a href="/tutorials">Tutoriels Suno</a></li>
-                        <li><a href="/press">Kit Presse</a></li>
-                        <li><a href="/process">Process Créatif</a></li>
+                        <li><a href="#musique">Écouter mes tracks</a></li>
+                        <li><a href="https://suno.com/@ymaj" target="_blank">Mon profil Suno</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Suivre</h3>
                     <ul class="footer-links">
-                        <li><a href="https://twitter.com/ymaj_official" target="_blank">🐦 Twitter</a></li>
-                        <li><a href="https://instagram.com/ymaj_music" target="_blank">📸 Instagram</a></li>
-                        <li><a href="https://youtube.com/@ymajmusic" target="_blank">📺 YouTube</a></li>
-                        <li><a href="/newsletter">📧 Newsletter</a></li>
+                        <li><a href="https://x.com/Ymaj_Lyrics" target="_blank">🐦 X (Twitter)</a></li>
+                        <li><a href="https://www.youtube.com/@Ymaj_Lyrics" target="_blank">📺 YouTube</a></li>
+                        <li><a href="https://soundcloud.com/ymaj_lyrics" target="_blank">🔊 SoundCloud</a></li>
+                        <li><a href="https://suno.com/@ymaj" target="_blank">🎵 Suno</a></li>
                     </ul>
                 </div>
             </div>
@@ -875,74 +804,331 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
-        // Mobile Navigation Toggle
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.querySelector('.nav-links');
+        // =====================================================
+        // CONFIGURATION DES TRACKS - MODIFIE ICI TES MUSIQUES
+        // =====================================================
         
-        mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileToggle.classList.toggle('active');
-        });
-        
-        // Smooth Scrolling for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        const tracksList = {
+            1: { 
+                title: "Mon évidence", 
+                artist: "YMAJ", 
+                type: "preview", // "preview" = 40s max | "full" = track complète | "teaser" = pas encore dispo
+                available: true,
+                description: "Premier single officiel. Un voyage introspectif entre mélancolie et espoir.",
+                streaming: {
+                    spotify: "", // Laisse vide si pas encore dispo
+                    apple: "",
+                    youtube: "https://www.youtube.com/@Ymaj_Lyrics",
+                    soundcloud: "https://soundcloud.com/ymaj_lyrics"
                 }
-                // Close mobile menu if open
-                navLinks.classList.remove('active');
-            });
-        });
-        
-        // Navigation Background on Scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(10, 10, 10, 0.98)';
-            } else {
-                nav.style.background = 'rgba(10, 10, 10, 0.95)';
+            },
+            2: { 
+                title: "Experimental Session #1", 
+                artist: "YMAJ", 
+                type: "full",
+                available: true,
+                description: "Exploration sonore électronique. Disponible gratuitement pour découvrir mon processus créatif.",
+                streaming: {}
+            },
+            3: { 
+                title: "Fusion Culturelle", 
+                artist: "YMAJ", 
+                type: "teaser",
+                available: false,
+                description: "Nouvelle composition en préparation. Fusion entre influences québécoises et production IA innovante.",
+                releaseDate: "Septembre 2025",
+                streaming: {}
             }
-        });
+            // Pour ajouter une track : copie un bloc ci-dessus, change le numéro (4, 5, etc.)
+        };
         
-        // Audio Player Management
+        // =====================================================
+        // SYSTÈME AUDIO DYNAMIQUE - NE TOUCHE PAS SAUF SI TU SAIS
+        // =====================================================
+        
+        let currentTrackId = 1;
+        let trackIds = Object.keys(tracksList).map(Number);
+        let shuffledIds = [...trackIds];
         let currentAudio = null;
+        let previewTimer = null;
         
-        function playTrack(trackId) {
-            // Stop current audio if playing
+        // Fonction pour shuffler les tracks
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        // Shuffle initial au chargement
+        function shuffleTracks() {
+            shuffledIds = shuffleArray(trackIds);
+            console.log('🔀 Tracks shufflées:', shuffledIds);
+        }
+        
+        // Mettre à jour l'affichage de la track
+        function updateTrackDisplay(trackId) {
+            const track = tracksList[trackId];
+            if (!track) return;
+            
+            // Mettre à jour les infos dans le player
+            document.getElementById('currentTitle').textContent = track.title;
+            
+            // Mettre à jour le type
+            const typeElement = document.getElementById('currentType');
+            const typeTexts = {
+                'preview': 'Extrait 40s',
+                'full': 'Track complète',
+                'teaser': 'Bientôt disponible'
+            };
+            
+            typeElement.textContent = typeTexts[track.type] || 'Track';
+            typeElement.className = `track-type type-${track.type}`;
+            
+            // Gérer les liens de streaming
+            updateStreamingLinks(track);
+        }
+        
+        // Mettre à jour les liens de streaming
+        function updateStreamingLinks(track) {
+            const links = document.querySelectorAll('.streaming-btn');
+            
+            links.forEach(link => {
+                const platform = link.textContent.toLowerCase();
+                
+                if (track.type === 'preview' && track.streaming) {
+                    // Pour les previews, activer selon disponibilité
+                    if (platform.includes('spotify') && track.streaming.spotify) {
+                        link.href = track.streaming.spotify;
+                        link.classList.remove('disabled');
+                    } else if (platform.includes('apple') && track.streaming.apple) {
+                        link.href = track.streaming.apple;
+                        link.classList.remove('disabled');
+                    } else if (platform.includes('youtube')) {
+                        link.href = track.streaming.youtube || "https://www.youtube.com/@Ymaj_Lyrics";
+                        link.classList.remove('disabled');
+                    } else if (platform.includes('soundcloud')) {
+                        link.href = track.streaming.soundcloud || "https://soundcloud.com/ymaj_lyrics";
+                        link.classList.remove('disabled');
+                    } else {
+                        link.classList.add('disabled');
+                    }
+                } else {
+                    // Pour les autres types, garder les liens de base
+                    link.classList.remove('disabled');
+                }
+            });
+        }
+        
+        // Charger une track
+        function loadTrack(trackId) {
+            const track = tracksList[trackId];
+            if (!track || !track.available) {
+                console.log(`Track ${trackId} non disponible`);
+                return false;
+            }
+            
+            const audio = document.getElementById('mainAudio');
+            const newSource = `/music/${trackId}.mp3`;
+            
+            // Arrêter l'audio actuel
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
             }
             
-            // Audio sources mapping
-            const tracks = {
-                'mon-evidence': '/music/mon-evidence.mp3',
-                'vault-3': '/music/vault-session-3.mp3'
-            };
+            // Charger la nouvelle track
+            audio.src = newSource;
+            audio.load();
             
-            if (tracks[trackId]) {
-                currentAudio = new Audio(tracks[trackId]);
-                currentAudio.play().catch(error => {
-                    console.log('Erreur lecture audio:', error);
-                    alert('Fichier audio non disponible');
-                });
+            currentTrackId = trackId;
+            currentAudio = audio;
+            
+            // Mettre à jour l'affichage
+            updateTrackDisplay(trackId);
+            
+            // Gérer le timer pour les previews
+            setupPreviewTimer(track);
+            
+            console.log(`🎵 Track chargée: ${track.title}`);
+            return true;
+        }
+        
+        // Timer pour limiter les previews à 40 secondes
+        function setupPreviewTimer(track) {
+            const audio = document.getElementById('mainAudio');
+            const notice = document.getElementById('previewNotice');
+            
+            // Nettoyer le timer précédent
+            if (previewTimer) {
+                clearTimeout(previewTimer);
+                previewTimer = null;
+            }
+            
+            // Cacher la notice
+            notice.classList.remove('show');
+            
+            if (track.type === 'preview') {
+                // Écouter les mises à jour de temps
+                const timeUpdateHandler = () => {
+                    if (audio.currentTime >= 40) {
+                        audio.pause();
+                        notice.classList.add('show');
+                        audio.removeEventListener('timeupdate', timeUpdateHandler);
+                        
+                        console.log('⏰ Preview 40s terminée');
+                    }
+                };
                 
-                // Update player in hero section
-                const heroAudio = document.querySelector('.audio-player audio');
-                heroAudio.src = tracks[trackId];
-                heroAudio.load();
+                audio.addEventListener('timeupdate', timeUpdateHandler);
             }
         }
         
-        // Animated Counters for Stats
+        // Navigation entre tracks
+        function nextTrack() {
+            const currentIndex = shuffledIds.indexOf(currentTrackId);
+            const nextIndex = (currentIndex + 1) % shuffledIds.length;
+            const nextId = shuffledIds[nextIndex];
+            
+            loadTrack(nextId);
+        }
+        
+        function previousTrack() {
+            const currentIndex = shuffledIds.indexOf(currentTrackId);
+            const prevIndex = (currentIndex - 1 + shuffledIds.length) % shuffledIds.length;
+            const prevId = shuffledIds[prevIndex];
+            
+            loadTrack(prevId);
+        }
+        
+        // Jouer une track spécifique (pour les boutons des cards)
+        function playTrack(trackId) {
+            loadTrack(parseInt(trackId));
+            
+            // Auto-play si possible
+            const audio = document.getElementById('mainAudio');
+            audio.play().catch(error => {
+                console.log('Auto-play bloqué par le navigateur');
+            });
+        }
+        
+        // =====================================================
+        // GÉNÉRATION DES CARDS DE MUSIQUE - AUTO-MAGIQUE
+        // =====================================================
+        
+        function generateTrackCards() {
+            const container = document.getElementById('trackCards');
+            container.innerHTML = '';
+            
+            Object.entries(tracksList).forEach(([id, track]) => {
+                const card = document.createElement('div');
+                card.className = 'track-card fade-in';
+                
+                // Déterminer le statut
+                let statusClass, statusText;
+                if (track.type === 'preview' || track.type === 'full') {
+                    statusClass = track.type === 'preview' ? 'status-official' : 'status-vault';
+                    statusText = track.type === 'preview' ? 'Officielle' : 'Gratuit';
+                } else {
+                    statusClass = 'status-coming';
+                    statusText = 'Prochainement';
+                }
+                
+                // Boutons d'action
+                let actionButtons = '';
+                if (track.available) {
+                    actionButtons = `
+                        <button class="btn btn-primary" onclick="playTrack('${id}')">▶️ Écouter</button>
+                        ${track.type === 'full' ? 
+                            `<a href="/music/${id}.mp3" class="btn btn-secondary" download>⬇️ Télécharger</a>` : 
+                            `<a href="#" class="btn btn-secondary">🔗 Streaming</a>`
+                        }
+                    `;
+                } else {
+                    actionButtons = `<button class="btn btn-secondary" disabled>🔜 ${track.releaseDate || 'Bientôt'}</button>`;
+                }
+                
+                card.innerHTML = `
+                    <div class="track-header">
+                        <div>
+                            <h3>${track.title}</h3>
+                            <p class="track-artist">${track.artist} • 2025</p>
+                        </div>
+                        <span class="track-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <p>${track.description}</p>
+                    <div class="track-actions">
+                        ${actionButtons}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // =====================================================
+        // INITIALISATION - SE LANCE AUTOMATIQUEMENT
+        // =====================================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🎵 YMAJ Site initialized');
+            
+            // Shuffler et charger la première track
+            shuffleTracks();
+            loadTrack(shuffledIds[0]);
+            
+            // Générer les cards
+            generateTrackCards();
+            
+            // Navigation mobile
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Stats animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        
+                        // Animer les compteurs
+                        if (entry.target.querySelector('.stats-grid')) {
+                            setTimeout(() => {
+                                animateCounter(document.getElementById('tracksCount'), Object.keys(tracksList).length);
+                                animateCounter(document.getElementById('streamsCount'), 1200);
+                            }, 300);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.section, .track-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Animation des compteurs
         function animateCounter(element, target, duration = 2000) {
             let current = 0;
             const increment = target / (duration / 16);
@@ -962,225 +1148,49 @@
             }, 16);
         }
         
-        // Intersection Observer for Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // =====================================================
+        // GUIDE POUR TOI - COMMENT UTILISER CE SYSTÈME
+        // =====================================================
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    
-                    // Animate counters when stats section is visible
-                    if (entry.target.querySelector('.stats-grid')) {
-                        setTimeout(() => {
-                            animateCounter(document.getElementById('tracksCount'), 12);
-                            animateCounter(document.getElementById('streamsCount'), 2500);
-                            animateCounter(document.getElementById('articlesCount'), 8);
-                        }, 300);
-                    }
-                }
-            });
-        }, observerOptions);
+        /*
+        🎵 COMMENT AJOUTER UNE NOUVELLE TRACK :
         
-        // Observe sections for animations
-        document.querySelectorAll('.section, .track-card, .blog-card').forEach(el => {
-            observer.observe(el);
-        });
+        1. Upload ton MP3 dans /music/ avec le nom : 4.mp3, 5.mp3, etc.
         
-        // Form Handling (for future contact forms)
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            
-            // Simulate form submission
-            console.log('Form submitted:', Object.fromEntries(formData));
-            alert('Message envoyé ! Merci pour votre intérêt.');
-        }
+        2. Ajoute l'entrée dans tracksList (ligne ~320) :
         
-        // Analytics Helper (Umami/Plausible compatible)
-        function trackEvent(eventName, properties = {}) {
-            // Umami tracking
-            if (typeof umami !== 'undefined') {
-                umami.track(eventName, properties);
+        4: { 
+            title: "Ma Nouvelle Track", 
+            artist: "YMAJ", 
+            type: "full", // ou "preview" ou "teaser"
+            available: true,
+            description: "Description de ta track...",
+            streaming: {
+                spotify: "https://...", // si dispo
+                apple: "https://...",   // si dispo
             }
-            
-            // Plausible tracking
-            if (typeof plausible !== 'undefined') {
-                plausible(eventName, { props: properties });
-            }
-            
-            console.log('Event tracked:', eventName, properties);
-        }
+        },
         
-        // Track music plays
-        document.querySelectorAll('.btn-primary').forEach(btn => {
-            if (btn.textContent.includes('Écouter')) {
-                btn.addEventListener('click', () => {
-                    trackEvent('Play Track', {
-                        track: btn.closest('.track-card')?.querySelector('h3')?.textContent || 'Unknown'
-                    });
-                });
-            }
-        });
+        3. Sauvegarde et actualise -> Apparaît automatiquement !
         
-        // Track downloads
-        document.querySelectorAll('a[download]').forEach(link => {
-            link.addEventListener('click', () => {
-                trackEvent('Download Track', {
-                    track: link.href.split('/').pop()
-                });
-            });
-        });
+        🎵 TYPES DE TRACKS :
+        - "preview" = 40 secondes max + liens streaming
+        - "full" = track complète + bouton téléchargement  
+        - "teaser" = pas encore dispo, juste annonce
         
-        // Track external links
-        document.querySelectorAll('a[href^="http"]').forEach(link => {
-            link.addEventListener('click', () => {
-                trackEvent('External Link', {
-                    url: link.href,
-                    text: link.textContent
-                });
-            });
-        });
+        🎵 SI TU CASSES QUELQUE CHOSE :
+        - Regarde la console (F12) pour les erreurs
+        - Vérifie que le fichier MP3 existe
+        - Assure-toi que la syntaxe JSON est correcte (virgules, etc.)
         
-        // Keyboard Navigation
-        document.addEventListener('keydown', (e) => {
-            // Space bar to play/pause audio
-            if (e.code === 'Space' && !e.target.matches('input, textarea')) {
-                e.preventDefault();
-                const audio = document.querySelector('.audio-player audio');
-                if (audio.paused) {
-                    audio.play();
-                } else {
-                    audio.pause();
-                }
-            }
-        });
+        🎵 POUR DÉSACTIVER TEMPORAIREMENT :
+        - Mets available: false
+        - Ou commente la ligne avec //
         
-        // Service Worker for Offline Capability (Progressive Web App)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then((registration) => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch((registrationError) => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
+        Contact : ymaj.contact@gmail.com si besoin d'aide ! 😄
+        */
         
-        // Performance Monitoring
-        window.addEventListener('load', () => {
-            // Measure page load performance
-            if ('performance' in window) {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
-                
-                trackEvent('Page Load', {
-                    loadTime: Math.round(loadTime),
-                    timing: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart)
-                });
-            }
-        });
-        
-        // Error Handling
-        window.addEventListener('error', (e) => {
-            trackEvent('JavaScript Error', {
-                message: e.message,
-                filename: e.filename,
-                line: e.lineno
-            });
-        });
-        
-        // Initialize on DOM ready
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set current year in footer
-            const currentYear = new Date().getFullYear();
-            document.querySelector('.footer-bottom p').innerHTML = 
-                document.querySelector('.footer-bottom p').innerHTML.replace('2025', currentYear);
-            
-            // Initialize any other components
-            console.log('YMAJ Website initialized');
-            trackEvent('Site Initialized');
-        });
     </script>
     
-    <!-- Service Worker Script -->
-    <script>
-        // Service Worker Content (to be saved as /sw.js)
-        const SW_CONTENT = `
-        const CACHE_NAME = 'ymaj-v1';
-        const urlsToCache = [
-            '/',
-            '/music/mon-evidence.mp3',
-            '/music/vault-session-3.mp3',
-            '/style.css',
-            '/script.js'
-        ];
-        
-        self.addEventListener('install', (event) => {
-            event.waitUntil(
-                caches.open(CACHE_NAME)
-                    .then((cache) => cache.addAll(urlsToCache))
-            );
-        });
-        
-        self.addEventListener('fetch', (event) => {
-            event.respondWith(
-                caches.match(event.request)
-                    .then((response) => {
-                        return response || fetch(event.request);
-                    }
-                )
-            );
-        });
-        `;
-        
-        // Create service worker file dynamically
-        const blob = new Blob([SW_CONTENT], { type: 'application/javascript' });
-        const swUrl = URL.createObjectURL(blob);
-    </script>
-    
-    <!-- Schema.org Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "MusicGroup",
-        "name": "YMAJ",
-        "alternateName": "Jamy",
-        "description": "Artiste franco-canadien explorant la musique IA avec transparence et créativité",
-        "genre": ["Electronic", "AI-assisted Music", "Indie"],
-        "foundingLocation": {
-            "@type": "Place",
-            "name": "Québec, Canada"
-        },
-        "member": {
-            "@type": "Person",
-            "name": "Jamy",
-            "nationality": "French-Canadian"
-        },
-        "album": {
-            "@type": "MusicAlbum",
-            "name": "Mon évidence",
-            "@id": "#mon-evidence",
-            "datePublished": "2025",
-            "track": {
-                "@type": "MusicRecording",
-                "name": "Mon évidence",
-                "duration": "PT3M30S",
-                "inAlbum": "#mon-evidence"
-            }
-        },
-        "url": "https://ymaj.netlify.app",
-        "sameAs": [
-            "https://twitter.com/ymaj_official",
-            "https://instagram.com/ymaj_music",
-            "https://youtube.com/@ymajmusic"
-        ]
-    }
-    </script>
 </body>
 </html>

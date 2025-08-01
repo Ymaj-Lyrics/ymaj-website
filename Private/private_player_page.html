@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Privée - YMAJ</title>
+    
+    <!-- Empêcher indexation -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="googlebot" content="noindex, nofollow">
+    
+    <!-- Sécurité -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #6366f1;
+            --border: #333333;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .private-container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .private-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        .private-header {
+            margin-bottom: 2rem;
+        }
+        
+        .private-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        .track-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .track-artist {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .track-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .player-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            height: 60px;
+            border-radius: 10px;
+            background: var(--bg-secondary);
+            outline: none;
+        }
+        
+        .audio-player audio::-webkit-media-controls-panel {
+            background-color: var(--bg-secondary);
+        }
+        
+        .player-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .duration {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quality-badge {
+            background: rgba(39, 174, 96, 0.2);
+            color: #22c55e;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .private-warning {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .warning-title {
+            color: #ef4444;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .warning-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .feedback-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .feedback-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .share-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .footer-note {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Sécurité - Désactiver sélection de texte sur certains éléments */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .private-container {
+                padding: 2rem;
+                margin: 10px;
+            }
+            
+            .track-title {
+                font-size: 1.5rem;
+            }
+            
+            .feedback-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                min-width: 200px;
+                justify-content: center;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .private-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* Protection contre le clic droit sur l'audio */
+        audio {
+            pointer-events: auto;
+        }
+        
+        audio::-webkit-media-controls-download-button {
+            display: none;
+        }
+        
+        audio::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+        
+        audio::-webkit-media-controls-panel {
+            background-color: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="private-container">
+        <div class="private-header">
+            <div class="private-badge">🔒 Preview Privée</div>
+            <h1 class="track-title">Mon évidence</h1>
+            <div class="track-artist">YMAJ</div>
+            <p class="track-description">
+                Découvrez en avant-première ma nouvelle composition. 
+                Un voyage introspectif entre mélancolie et espoir, 
+                porté par des paroles personnelles et une production IA soignée.
+            </p>
+        </div>
+        
+        <div class="player-section">
+            <div class="audio-player">
+                <audio 
+                    controls 
+                    preload="metadata" 
+                    controlslist="nodownload nofullscreen noremoteplayback"
+                    disablepictureinpicture
+                >
+                    <source src="../music/private/mon-evidence-full.mp3" type="audio/mpeg">
+                    <p>Votre navigateur ne supporte pas l'élément audio.</p>
+                </audio>
+            </div>
+            
+            <div class="player-info">
+                <div class="duration">
+                    <span>⏱️ Durée : 3:30</span>
+                </div>
+                <div class="quality-badge">HQ Audio</div>
+            </div>
+        </div>
+        
+        <div class="private-warning">
+            <div class="warning-title">
+                ⚠️ Contenu Exclusif
+            </div>
+            <div class="warning-text">
+                Cette preview est partagée exclusivement avec toi. 
+                Merci de ne pas redistribuer ce lien. 
+                La track sera officiellement disponible sur toutes les plateformes le 22 août 2025.
+            </div>
+        </div>
+        
+        <div class="feedback-section">
+            <div class="feedback-title">💬 Ton avis m'intéresse !</div>
+            <div class="feedback-buttons">
+                <a href="mailto:hello@ymaj.fr?subject=Feedback Mon évidence&body=Salut YMAJ,%0D%0A%0D%0AJ'ai écouté ta preview de 'Mon évidence' et voici mon feedback :%0D%0A%0D%0A" 
+                   class="btn btn-primary">
+                    📧 Envoyer feedback
+                </a>
+                <a href="sms:+1234567890?body=Salut YMAJ ! J'ai écouté 'Mon évidence', c'est..." 
+                   class="btn btn-secondary">
+                    💬 SMS rapide
+                </a>
+            </div>
+        </div>
+        
+        <div class="share-info">
+            <strong>🎵 Release officielle :</strong> 22 août 2025<br>
+            <strong>📱 Disponible sur :</strong> Spotify, Apple Music, YouTube, Bandcamp<br>
+            <strong>🌐 Site officiel :</strong> <a href="https://ymaj-official.netlify.app" style="color: var(--accent);">ymaj-official.netlify.app</a>
+        </div>
+        
+        <div class="footer-note">
+            <p>&copy; 2025 YMAJ (Jamy) • Paroles originales, musique générée avec Suno AI</p>
+            <p>Preview privée générée le : <span id="currentDate"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Protection basique contre le clic droit
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'AUDIO') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Désactiver certains raccourcis clavier
+        document.addEventListener('keydown', function(e) {
+            // Empêcher F12, Ctrl+Shift+I, Ctrl+U
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Afficher la date de génération
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-CA');
+        
+        // Analytics pour usage privé
+        const audio = document.querySelector('audio');
+        let playStarted = false;
+        let playDuration = 0;
+        
+        audio.addEventListener('play', function() {
+            if (!playStarted) {
+                playStarted = true;
+                console.log('Private preview started:', new Date().toISOString());
+            }
+        });
+        
+        audio.addEventListener('timeupdate', function() {
+            playDuration = audio.currentTime;
+        });
+        
+        audio.addEventListener('ended', function() {
+            console.log('Private preview completed:', playDuration + 's');
+        });
+        
+        // Message de bienvenue en console (pour debug)
+        console.log('🎵 YMAJ - Preview Privée "Mon évidence"');
+        console.log('🔒 Contenu exclusif - Ne pas redistribuer');
+        console.log('📧 Feedback: hello@ymaj.fr');
+        
+        // Prévenir la copie du lien audio (protection basique)
+        audio.addEventListener('loadstart', function() {
+            console.log('Audio loading...');
+        });
+        
+        // Détection de base des outils de développement
+        let devtools = {open: false};
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > 200 || 
+                window.outerWidth - window.innerWidth > 200) {
+                if (!devtools.open) {
+                    devtools.open = true;
+                    console.clear();
+                    console.log('🎵 Merci de respecter le caractère privé de cette preview');
+                }
+            } else {
+                devtools.open = false;
+            }
+        }, 500);
+        
+        // Smooth scroll et animations au chargement
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
